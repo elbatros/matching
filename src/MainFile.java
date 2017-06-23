@@ -118,14 +118,23 @@ public class MainFile {
   //   between the two given lists.
   public void matching(){
     for(String company : allProds.keySet()){
-      LinkedList<Listing> compa_ads = new LinkedList<Listing>(); // collects listing related to company
-
+      // "compa_ads" collects listing related to company
+      LinkedList<Listing> compa_ads = new LinkedList<Listing>(); 
+      String compSecdName=company;
+      if (compSecdName.equals("Fujifilm") ){ compSecdName="fuji";}
+      
       ListIterator<Listing> iter = ads.listIterator();
       while( iter.hasNext() ){
         Listing ad = iter.next();
-        if(ad.manuf.toLowerCase().contains(company.toLowerCase())){
-          iter.remove(); // remove it from ads
-          compa_ads.add( ad );// add it to compa_ads
+        if(ad.manuf.toLowerCase().contains(compSecdName.toLowerCase())){
+          iter.remove();        // remove it from ads
+          compa_ads.add( ad );  // add it to compa_ads
+        }else if(compSecdName.equals("HP")){ // special case 
+          compSecdName="hewlett packard";
+          if ( ad.manuf.toLowerCase().contains(compSecdName) ){
+            iter.remove();      // remove it from ads
+            compa_ads.add( ad );// add it to compa_ads
+          }
         }
       }
 
